@@ -7,47 +7,35 @@
     android:background="@drawable/bg_gradient"
     android:padding="24dp">
 
+    <!-- Welcome Text -->
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selamat Datang Di SPFF"
+        android:text="@string/welcome_message"
         android:fontFamily="@font/poppins_regular"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#000000"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnMasuk"
+        app:layout_constraintBottom_toTopOf="@id/btnMasuk"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp" />
 
-
+    <!-- Login Button -->
     <Button
         android:id="@+id/btnMasuk"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Masuk"
+        android:text="@string/masuk"
         android:fontFamily="@font/poppins_regular"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#4285F4"
+        android:backgroundTint="#3367D6"
         android:padding="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvDaftar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp" />
-
-    <TextView
-        android:id="@+id/tvDaftar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="14sp"
-        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="24dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="48dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

@@ -13,8 +13,9 @@
         android:theme="@style/Theme.PetFeeder"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".SettingsActivity"
             android:exported="false" />
+        <!-- Launcher screen -->
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -23,20 +24,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Login screen -->
         <activity
             android:name=".LoginActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- Main screen -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

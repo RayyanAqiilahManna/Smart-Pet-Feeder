@@ -9,7 +9,12 @@
         android:id="@+id/navigation_penjadwalan"
         android:name="com.example.petfeeder.ui.penjadwalan.PenjadwalanFragment"
         android:label="@string/title_penjadwalan"
-        tools:layout="@layout/fragment_penjadwalan" />
+        tools:layout="@layout/fragment_penjadwalan">
+
+        <action
+            android:id="@+id/action_penjadwalanFragment_to_addScheduleFragment"
+            app:destination="@id/addScheduleFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_pemantauan"
@@ -21,7 +26,12 @@
         android:id="@+id/navigation_kucing"
         android:name="com.example.petfeeder.ui.kucing.KucingFragment"
         android:label="@string/title_kucing"
-        tools:layout="@layout/fragment_kucing" />
+        tools:layout="@layout/fragment_kucing">
+
+        <action
+            android:id="@+id/action_KucingFragment_to_TambahKucingFragment"
+            app:destination="@id/navigation_tambah_kucing" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_riwayat"
@@ -29,4 +39,15 @@
         android:label="@string/title_riwayat"
         tools:layout="@layout/fragment_riwayat" />
 
+    <fragment
+        android:id="@+id/navigation_tambah_kucing"
+        android:name="com.example.petfeeder.ui.kucing.TambahKucingFragment"
+        android:label="Tambah Kucing"
+        tools:layout="@layout/fragment_tambah_kucing" />
+
+    <fragment
+        android:id="@+id/addScheduleFragment"
+        android:name="com.example.petfeeder.ui.penjadwalan.AddScheduleFragment"
+        android:label="Tambah Jadwal"
+        tools:layout="@layout/fragment_add_schedule" />
 </navigation>

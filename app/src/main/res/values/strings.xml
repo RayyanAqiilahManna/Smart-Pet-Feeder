@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Pet Feeder</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="welcome_message">Selamat Datang Di SPFF</string>
+    <string name="masuk">Masuk</string>
+    <string name="empty">BETA 1.0</string>
+    <string name="title_penjadwalan">Penjadwalan</string>
+    <string name="title_pemantauan">Pemantauan</string>
+    <string name="title_kucing">Kucing</string>
+    <string name="title_riwayat">Riwayat</string>
+    <string name="battery">Sisa Makanan</string>
+    <string name="settings">Pengaturan</string>
+    <string name="wifi">WiFi</string>
+    <string name="profile">Profil</string>
+    <string name="theme">Tema</string>
+    <string name="logout_confirmation">Apakah Anda yakin ingin logout?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Batal</string>
+    <string name="default_web_client_id">566730574934-fnnhjq0s5m9lmsju6rd97ljio2sbg6p4.apps.googleusercontent.com</string>
+
+
+
+</resources>

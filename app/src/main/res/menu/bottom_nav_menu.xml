@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_penjadwalan"
+        android:icon="@drawable/clock_svg"
+        android:title="@string/title_penjadwalan" />
+
+    <item
+        android:id="@+id/navigation_pemantauan"
+        android:icon="@drawable/camera_svg"
+        android:title="@string/title_pemantauan" />
+
+    <item
+        android:id="@+id/navigation_kucing"
+        android:icon="@drawable/cat_svg"
+        android:title="@string/title_kucing" />
+
+    <item
+        android:id="@+id/navigation_riwayat"
+        android:icon="@drawable/history_svg"
+        android:title="@string/title_riwayat" />
+
+</menu>

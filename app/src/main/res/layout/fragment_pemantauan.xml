@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pemantauan"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#000000"
+            android:layout_marginTop="48dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Settings -->
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/gear_settings_svgrepo_com"
+            android:contentDescription="@string/settings"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Live Cam -->
+        <ImageView
+            android:id="@+id/imgLiveCam"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/abyssinian_placeholder"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <!-- Live Cam Label -->
+        <TextView
+            android:id="@+id/tvLiveCam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIVE CAM"
+            android:textStyle="bold"
+            android:textColor="#FF0000"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toTopOf="@id/imgLiveCam"
+            app:layout_constraintEnd_toEndOf="@id/imgLiveCam" />
+
+        <!-- Label -->
+        <TextView
+            android:id="@+id/tvStorageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sisa Penyimpanan"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#000000"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/imgLiveCam"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Battery Icon -->
+        <ImageView
+            android:id="@+id/imgBattery"
+            android:layout_width="100dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/battery_icon"
+            android:contentDescription="@string/battery"
+            app:layout_constraintTop_toBottomOf="@id/tvStorageLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- "Mulai Pemantauan" Button -->
+        <Button
+            android:id="@+id/btnMulaiPemantauan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mulai Pemantauan"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#4285F4"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/imgBattery"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

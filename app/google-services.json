@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "566730574934",
+    "project_id": "capstone-spf-dev",
+    "storage_bucket": "capstone-spf-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566730574934:android:cdf914cf84eb1ff8c17ff7",
+        "android_client_info": {
+          "package_name": "com.example.petfeeder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566730574934-fnnhjq0s5m9lmsju6rd97ljio2sbg6p4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.petfeeder",
+            "certificate_hash": "72463cc5ae9046077d1be9f6b4706419a87e6997"
+          }
+        },
+        {
+          "client_id": "566730574934-v5cvbnm5qio0g235qc7vfbbp3rnete1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQTcTWOti0cJLbAKaON1C8N9jShW2P1BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566730574934-v5cvbnm5qio0g235qc7vfbbp3rnete1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

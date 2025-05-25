@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvDaftarKucing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daftar Kucing"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="56dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Settings Icon -->
+    <ImageView
+        android:id="@+id/btnSettings"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="56dp"
+        android:contentDescription="@string/settings"
+        android:src="@drawable/gear_settings_svgrepo_com" />
+
+    <!-- RecyclerView for Cat List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewKucing"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/tvDaftarKucing"
+        android:layout_above="@+id/btnAddKucing"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <!-- Floating Add Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddKucing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dp"
+        app:backgroundTint="@color/teal_200"
+        android:src="@drawable/plus_svg" />
+</RelativeLayout>

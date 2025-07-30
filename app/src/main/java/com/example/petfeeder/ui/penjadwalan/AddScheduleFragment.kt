@@ -42,18 +42,22 @@ class AddScheduleFragment : Fragment() {
         timePicker.setIs24HourView(true)
 
         btnSave.setOnClickListener {
+            btnSave.isEnabled = false
+
             val hour = timePicker.hour
             val minute = timePicker.minute
             val portionText = etPortion.text.toString()
 
             if (portionText.isEmpty()) {
                 Toast.makeText(requireContext(), "Porsi tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                btnSave.isEnabled = true
                 return@setOnClickListener
             }
 
             val portion = portionText.toIntOrNull()
             if (portion == null || portion <= 0) {
                 Toast.makeText(requireContext(), "Porsi harus berupa angka positif", Toast.LENGTH_SHORT).show()
+                btnSave.isEnabled = true
                 return@setOnClickListener
             }
 
@@ -78,14 +82,18 @@ class AddScheduleFragment : Fragment() {
                                         findNavController().navigateUp()
                                     } else {
                                         Toast.makeText(requireContext(), "Gagal menyimpan ke server: ${response.message}", Toast.LENGTH_SHORT).show()
+                                        btnSave.isEnabled = true
                                     }
                                 }
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
                                     Toast.makeText(requireContext(), "Kesalahan jaringan: ${e.message}", Toast.LENGTH_LONG).show()
+                                    btnSave.isEnabled = true
                                 }
                             }
                         }
+                    } else {
+                        btnSave.isEnabled = true
                     }
                 }
         }
@@ -134,10 +142,10 @@ class AddScheduleFragment : Fragment() {
             }
         }
 
-        alarmManager.setRepeating(
+        // ✅ Use setExactAndAllowWhileIdle so alarm fires even in Doze mode
+        alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
     }

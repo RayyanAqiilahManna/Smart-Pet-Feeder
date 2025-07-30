@@ -64,6 +64,32 @@ data class GetCatProfilesResponse(
     val cats: List<CatProfileDto>
 )
 
+data class GetStorageResponse(
+    val status: String,
+    val percent_full: Float
+)
+
+data class AddHistoryRequest(
+    val token: String,
+    val date: String,
+    val time: String,
+    val portion: String
+)
+
+data class FeedingHistoryDto(
+    val id: String,
+    val date: String,
+    val time: String,
+    val portion: String
+)
+
+data class GetHistoryResponse(
+    val status: String,
+    val history: List<FeedingHistoryDto>
+)
+
+data class TriggerRequest(val token: String)
+
 interface ApiService {
     @POST("/add-schedule")
     suspend fun addSchedule(@Body request: AddScheduleRequest): StatusResponse
@@ -82,4 +108,23 @@ interface ApiService {
 
     @HTTP(method = "DELETE", path = "/delete-cat-profile", hasBody = true)
     suspend fun deleteCatProfile(@Body request: DeleteCatProfileRequest): StatusResponse
+
+    @POST("/get-storage")
+    suspend fun getStorage(@Body tokenBody: TokenBody): GetStorageResponse
+
+    @POST("/add-history")
+    suspend fun addHistory(@Body request: AddHistoryRequest): StatusResponse
+
+    @POST("/get-history")
+    suspend fun getHistory(@Body request: TokenBody): GetHistoryResponse
+
+    @POST("/trigger")
+    suspend fun triggerDetection(@Body request: TriggerRequest): StatusResponse
+
+    @POST("/reboot")
+    suspend fun reboot(@Body request: TriggerRequest): StatusResponse
+
+    @POST("/shutdown")
+    suspend fun shutdown(@Body request: TriggerRequest): StatusResponse
+
 }

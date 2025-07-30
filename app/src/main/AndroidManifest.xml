@@ -3,11 +3,14 @@
     package="com.example.petfeeder"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Notification permission (required for Android 13+) -->
+    <!-- ✅ Needed for notifications on Android 13+ -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!-- ✅ Internet for backend API calls -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
+    <!-- ✅ Required for setExactAndAllowWhileIdle() on Android 12+ -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +23,11 @@
         android:theme="@style/Theme.PetFeeder"
         tools:targetApi="31">
 
+        <!-- ✅ Mark this app as an “alarm” type app for Android 12+ -->
+        <meta-data
+            android:name="android.app.alarm.permission.SCHEDULE_EXACT_ALARM"
+            android:value="true" />
+
         <!-- BroadcastReceiver for schedule alarms -->
         <receiver android:name=".notifications.ScheduleReceiver" />
 
@@ -28,7 +36,7 @@
             android:name=".SettingsActivity"
             android:exported="false" />
 
-        <!-- Splash screen -->
+        <!-- Splash screen (entry point) -->
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -48,5 +56,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name" />
+
     </application>
 </manifest>

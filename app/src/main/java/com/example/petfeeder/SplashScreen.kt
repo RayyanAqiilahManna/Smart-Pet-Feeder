@@ -4,26 +4,31 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class SplashScreen : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ✅ Show splash screen layout first
         setContentView(R.layout.activity_splash_screen)
 
-        // Optional: Handle edge-to-edge padding
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        // ✅ Check if the user is already logged in
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
-        // Navigate to LoginActivity when button is pressed
-        val btnMasuk = findViewById<Button>(R.id.btnMasuk)
-        btnMasuk.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish() // Optional: remove splash screen from backstack
+        if (currentUser != null) {
+            // ✅ User is already logged in → skip login and go to MainActivity (Monitoring)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish() // Close Splash so user can't go back to it
+        } else {
+            // ❌ User is NOT logged in → wait for “Masuk” button press
+            val btnMasuk = findViewById<Button>(R.id.btnMasuk)
+            btnMasuk.setOnClickListener {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()  // ✅ Close Splash so user can’t go back with back button
+            }
         }
     }
 }

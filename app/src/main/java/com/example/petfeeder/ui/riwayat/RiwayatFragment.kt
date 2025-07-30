@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.petfeeder.R
 import com.example.petfeeder.SettingsActivity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.petfeeder.network.RetrofitClient
+import com.example.petfeeder.network.TokenBody
+import kotlinx.coroutines.launch
 
 class RiwayatFragment : Fragment() {
 
@@ -45,17 +47,39 @@ class RiwayatFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadHistory()
+        loadHistoryFromFirestore()
     }
 
-    private fun loadHistory() {
-        val prefs = requireContext().getSharedPreferences("feeding_history", Context.MODE_PRIVATE)
-        val json = prefs.getString("history", null)
-        historyList.clear()
-        if (json != null) {
-            val type = object : TypeToken<List<FeedingHistory>>() {}.type
-            historyList.addAll(Gson().fromJson(json, type))
+    private fun loadHistoryFromFirestore() {
+        val prefs = requireContext().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val token = prefs.getString("token", null) ?: return
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.apiService.getHistory(TokenBody(token))
+                if (response.status == "success") {
+                    historyList.clear()
+
+                    // ✅ Reverse the list so newest entries appear first
+                    // ✅ Optionally, you could limit results by using takeLast(30)
+                    response.history
+                        .reversed()
+                        .forEach {
+                            historyList.add(
+                                FeedingHistory(
+                                    date = it.date,
+                                    time = it.time,
+                                    portion = it.portion
+                                )
+                            )
+                        }
+
+                    adapter.notifyDataSetChanged()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // You can also show a Toast or Snackbar if needed
+            }
         }
-        adapter.notifyDataSetChanged()
     }
 }

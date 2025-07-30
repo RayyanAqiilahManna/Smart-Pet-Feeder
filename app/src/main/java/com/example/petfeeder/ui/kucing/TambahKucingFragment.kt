@@ -20,9 +20,9 @@ import kotlinx.coroutines.launch
 class TambahKucingFragment : Fragment() {
 
     private val jenisKucingList = listOf(
-        "Abyssinian", "American Shorthair", "Bengal", "Birman", "Bombay",
-        "British Shorthair", "Egyptian Mau", "Maine Coon", "Persian", "Ragdoll",
-        "Russian Blue", "Scottish Fold", "Siamese", "Sphynx"
+        "Abyssinian", "American_Shorthair", "Bengal", "Birman", "Bombay",
+        "British_Shorthair", "Egyptian_Mau", "Maine_Coon", "Moggy", "Persian", "Ragdoll",
+        "Russian_Blue", "Scottish_Fold", "Siamese", "Sphynx"
     )
 
     override fun onCreateView(
@@ -39,24 +39,30 @@ class TambahKucingFragment : Fragment() {
         dropdown.setAdapter(adapter)
 
         btnSimpan.setOnClickListener {
+            // ✅ Disable button immediately to prevent multiple clicks
+            btnSimpan.isEnabled = false
+
             val name = etNamaKucing.text.toString().trim()
             val breed = dropdown.text.toString().trim()
 
+            // ✅ Validate input
             if (name.isBlank() || breed.isBlank()) {
                 Toast.makeText(requireContext(), "Isi semua data", Toast.LENGTH_SHORT).show()
+                btnSimpan.isEnabled = true  // Re-enable if validation fails
                 return@setOnClickListener
             }
 
-            addCatProfileToBackend(name, breed)
+            addCatProfileToBackend(name, breed, btnSimpan)
         }
 
         return view
     }
 
-    private fun addCatProfileToBackend(name: String, breed: String) {
+    private fun addCatProfileToBackend(name: String, breed: String, btnSimpan: Button) {
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
             Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+            btnSimpan.isEnabled = true   // ✅ Re-enable if user not logged in
             return
         }
 
@@ -64,6 +70,7 @@ class TambahKucingFragment : Fragment() {
             val token = result.token
             if (token == null) {
                 Toast.makeText(requireContext(), "Failed to get token", Toast.LENGTH_SHORT).show()
+                btnSimpan.isEnabled = true   // ✅ Re-enable if token is null
                 return@addOnSuccessListener
             }
 
@@ -74,16 +81,19 @@ class TambahKucingFragment : Fragment() {
                     )
                     if (response.status == "success") {
                         Toast.makeText(requireContext(), "Profil kucing $name berhasil disimpan.", Toast.LENGTH_SHORT).show()
-                        requireActivity().onBackPressed()
+                        requireActivity().onBackPressed() // ✅ No need to re-enable since we leave the screen
                     } else {
                         Toast.makeText(requireContext(), "Gagal menyimpan profil: ${response.message}", Toast.LENGTH_SHORT).show()
+                        btnSimpan.isEnabled = true   // ✅ Re-enable if backend failed
                     }
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), "Error: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    btnSimpan.isEnabled = true   // ✅ Re-enable if network error
                 }
             }
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Failed to get token: ${it.message}", Toast.LENGTH_SHORT).show()
+            btnSimpan.isEnabled = true   // ✅ Re-enable if token request failed
         }
     }
 }

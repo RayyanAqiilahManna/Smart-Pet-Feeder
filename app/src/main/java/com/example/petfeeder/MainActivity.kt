@@ -6,12 +6,12 @@ import android.os.Build
 import android.os.Bundle
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.petfeeder.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ✅ REMOVE edge-to-edge behavior
+        // ❌ WindowCompat.setDecorFitsSystemWindows(window, false)
+        // ❌ window.statusBarColor = Color.TRANSPARENT
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -39,7 +43,9 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        // ❌ Don't need ActionBar support
+        // setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
 
         createNotificationChannel()

@@ -7,13 +7,26 @@
     android:background="@drawable/bg_gradient"
     android:padding="24dp">
 
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_kucing"
+        android:contentDescription="Logo"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/tvWelcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Welcome Text -->
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_message"
+        android:text="Selamat Datang di\nSmart Pet Feeder"
         android:fontFamily="@font/poppins_regular"
+        android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#000000"

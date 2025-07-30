@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var firebaseAuth: FirebaseAuth
 
-    // Replace this with your Cloud Run API endpoint
+    // Replace this with your actual backend URL
     private val BACKEND_URL = "https://spf-backend-566730574934.us-central1.run.app/login"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,8 @@ class LoginActivity : AppCompatActivity() {
         btnGoogleSignIn.setOnClickListener {
             oneTapClient.beginSignIn(signInRequest)
                 .addOnSuccessListener { result ->
-                    launcher.launch(IntentSenderRequest.Builder(result.pendingIntent.intentSender).build())
+                    val intentSender = result.pendingIntent.intentSender
+                    launcher.launch(IntentSenderRequest.Builder(intentSender).build())
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show()
@@ -65,27 +66,41 @@ class LoginActivity : AppCompatActivity() {
 
             firebaseAuth.signInWithCredential(googleCredentials)
                 .addOnSuccessListener {
+                    // ✅ After successful Firebase sign-in, get fresh ID token
                     firebaseAuth.currentUser?.getIdToken(true)
                         ?.addOnSuccessListener { firebaseToken ->
                             val token = firebaseToken.token
-                            sendTokenToCloudRun(token)
+
+                            if (token != null) {
+                                // ✅ Save token to SharedPreferences
+                                val prefs = getSharedPreferences("auth", MODE_PRIVATE)
+                                prefs.edit().putString("token", token).apply()
+                                Log.d("LoginActivity", "✅ Token saved to SharedPreferences: $token")
+
+                                // ✅ Send token to your backend
+                                sendTokenToCloudRun(token)
+                            } else {
+                                Log.e("LoginActivity", "❌ Token is null")
+                                Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        ?.addOnFailureListener {
+                            Log.e("LoginActivity", "❌ Failed to get Firebase token", it)
+                            Toast.makeText(this, "Failed to get token", Toast.LENGTH_SHORT).show()
                         }
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Firebase Auth failed", Toast.LENGTH_SHORT).show()
+                    Log.e("LoginActivity", "Firebase sign-in failed", it)
                 }
         }
     }
 
-    private fun sendTokenToCloudRun(idToken: String?) {
-        if (idToken == null) {
-            Toast.makeText(this, "ID Token is null", Toast.LENGTH_SHORT).show()
-            return
-        }
-
+    private fun sendTokenToCloudRun(idToken: String) {
         val client = OkHttpClient()
+
         val json = JSONObject().apply {
-            put("token", idToken) // Match FastAPI's TokenModel
+            put("token", idToken)
         }
 
         val body = RequestBody.create("application/json".toMediaTypeOrNull(), json.toString())
@@ -99,12 +114,13 @@ class LoginActivity : AppCompatActivity() {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
                     Toast.makeText(this@LoginActivity, "Network error: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    Log.e("LoginActivity", "❌ Backend login failed", e)
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body?.string()
-                Log.d("LoginActivity", "Response from Cloud Run: $responseBody")
+                Log.d("LoginActivity", "🌐 Response from backend: $responseBody")
                 if (response.isSuccessful) {
                     runOnUiThread {
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
